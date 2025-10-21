@@ -36,7 +36,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -74,42 +74,3 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-;; (after! lsp-mode
-;;   (setq lsp-headerline-breadcrumb-enable nil
-;;         lsp-enable-on-type-formatting nil))
-
-;; (after! company
-;;   (setq company-idle-delay 0.1
-;;         company-minimum-prefix-length 1))
-
-;; ;; Support React JSX and TSX files
-;; (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
-
-;; (after! flycheck
-;;   (setq flycheck-javascript-eslint-executable "eslint_d"
-;;         flycheck-typescript-tslint-executable nil
-;;         flycheck-disabled-checkers '(javascript-jshint json-jsonlint)))
-
-;; ;; Enable eslint for TSX/JSX
-;; (add-hook 'typescript-mode-hook 'flycheck-mode)
-;; (add-hook 'rjsx-mode-hook 'flycheck-mode)
-
-;; (defun eslint-fix-file ()
-;;   (interactive)
-;;   (when (and (projectile-project-root) (executable-find "eslint_d"))
-;;     (shell-command (format "eslint_d --fix %s" (buffer-file-name)))
-;;     (revert-buffer t t t)))
-
-;; (add-hook 'before-save-hook 'eslint-fix-file)
-
-;; (load! "treesit")
-;; (load! "go")
-
-
-;; fix path gopls
-(use-package! exec-path-from-shell
-  :config
-  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
-  (exec-path-from-shell-initialize))
