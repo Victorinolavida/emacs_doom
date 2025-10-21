@@ -75,27 +75,23 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;
-; (use-package! dape
-;   :config
-;   ;; Optional: auto-setup windows when debugging
-;   (add-hook 'dape-mode-hook #'dape-setup-windows)
-;
-;   ;; Example Go configuration
-;   (setq dape-adapters
-;         (append dape-adapters
-;                 '((dlv
-;                    :command "dlv"
-;                    :args ["dap" "-l" "127.0.0.1:0"]
-;                    :port 0
-;                    :host "127.0.0.1"))))
-;
-;   (setq dape-configurations
-;         '((go
-;            :type "dlv"
-;            :request "launch"
-;            :name "Launch Go App"
-;            :mode "debug"
-;            :program "${workspaceFolder}"
-;            :cwd "${workspaceFolder}"))))
-;
+;; (after! go-mode
+;;   (add-hook 'go-mode-hook #'gotest-ui-mode))
+
+;; ~/.doom.d/config.el
+(after! gotest-ui
+  (add-hook 'go-mode-hook #'gotest-ui-mode)
+
+  ;; Optional keybindings
+  (map! :after gotest-ui-mode
+        :map gotest-ui-mode-map
+        :localleader
+        :desc "Run Go tests" "t" #'gotest-ui-run
+        :desc "Toggle Go test UI" "u" #'gotest-ui-mode))
+
+;; go install golang.org/x/tools/gopls@latest
+;; go install github.com/fatih/gomodifytags@latest
+;; go install github.com/josharian/impl@latest
+;; go install github.com/go-delve/delve/cmd/dlv@latest
+;; go install github.com/rakyll/gotest@latest
+;; go install github.com/onsi/ginkgo/ginkgo@latest  # if using Ginkgo
