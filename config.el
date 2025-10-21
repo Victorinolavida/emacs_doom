@@ -74,3 +74,28 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;
+; (use-package! dape
+;   :config
+;   ;; Optional: auto-setup windows when debugging
+;   (add-hook 'dape-mode-hook #'dape-setup-windows)
+;
+;   ;; Example Go configuration
+;   (setq dape-adapters
+;         (append dape-adapters
+;                 '((dlv
+;                    :command "dlv"
+;                    :args ["dap" "-l" "127.0.0.1:0"]
+;                    :port 0
+;                    :host "127.0.0.1"))))
+;
+;   (setq dape-configurations
+;         '((go
+;            :type "dlv"
+;            :request "launch"
+;            :name "Launch Go App"
+;            :mode "debug"
+;            :program "${workspaceFolder}"
+;            :cwd "${workspaceFolder}"))))
+;
