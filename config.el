@@ -95,3 +95,16 @@
 ;; go install github.com/go-delve/delve/cmd/dlv@latest
 ;; go install github.com/rakyll/gotest@latest
 ;; go install github.com/onsi/ginkgo/ginkgo@latest  # if using Ginkgo
+
+;; keep the cursor centered to avoid sudden scroll jumps
+(require 'centered-cursor-mode)
+
+;; disable in terminal modes
+;; http://stackoverflow.com/a/6849467/519736
+;; also disable in Info mode, because it breaks going back with the backspace key
+(define-global-minor-mode my-global-centered-cursor-mode centered-cursor-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'Info-mode 'term-mode 'eshell-mode 'shell-mode 'erc-mode)))
+      (centered-cursor-mode))))
+(my-global-centered-cursor-mode 1)
