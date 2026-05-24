@@ -213,6 +213,56 @@
            :desc "Benchmark"      "b" #'go-test-current-benchmark
            :desc "Coverage"       "c" #'go-test-current-coverage))))
 
+;; org-roam (Obsidian alternative — zettelkasten + backlinks)
+(after! org-roam
+  (setq org-roam-directory "~/org/roam/")
+  (org-roam-db-autosync-mode)
+  (map! :leader
+        (:prefix ("n r" . "roam")
+         :desc "Find node"     "f" #'org-roam-node-find
+         :desc "Insert link"   "i" #'org-roam-node-insert
+         :desc "Capture"       "c" #'org-roam-capture
+         :desc "Toggle buffer" "b" #'org-roam-buffer-toggle
+         :desc "Graph"         "g" #'org-roam-graph)))
+
+;; xwidget-webkit as default browser (real WebKit engine)
+(setq browse-url-browser-function #'xwidget-webkit-browse-url)
+(map! :leader
+      (:prefix ("o w" . "browser")
+       :desc "Browse URL"          "w" #'xwidget-webkit-browse-url
+       :desc "Browse URL at point" "p" (cmd! (xwidget-webkit-browse-url (thing-at-point 'url t)))
+       :desc "Back"                "b" #'xwidget-webkit-back
+       :desc "Reload"              "r" #'xwidget-webkit-reload))
+
+;; Smudge — Spotify controller (needs OAuth2 credentials)
+;; Get client-id/secret at https://developer.spotify.com/dashboard
+(use-package! smudge
+  :config
+  (setq smudge-oauth2-client-id     (getenv "SPOTIFY_CLIENT_ID")
+        smudge-oauth2-client-secret (getenv "SPOTIFY_CLIENT_SECRET")
+        smudge-transport 'connect))
+
+(after! smudge
+  (map! :leader
+        (:prefix ("o S" . "spotify")
+         :desc "Track search"  "s" #'smudge-track-search
+         :desc "My playlists"  "l" #'smudge-my-playlists
+         :desc "Toggle play"   "t" #'smudge-controller-toggle-play
+         :desc "Next"          "n" #'smudge-controller-next-track
+         :desc "Prev"          "p" #'smudge-controller-previous-track
+         :desc "Volume +"      "=" #'smudge-controller-volume-up
+         :desc "Volume -"      "-" #'smudge-controller-volume-down)))
+
+;; Verb — HTTP client in org-mode (Bruno/Postman alternative)
+(use-package! verb
+  :after org
+  :config
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
+;; pgmacs — PostgreSQL table browser (DBeaver alternative)
+(use-package! pgmacs
+  :commands (pgmacs-open-string pgmacs-open))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
