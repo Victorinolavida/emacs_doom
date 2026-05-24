@@ -50,6 +50,15 @@
 ;; Icons in completion popup
 (package! kind-icon)
 
+;; Floating hover doc frame (replaces lsp-ui-doc-glance)
+(package! eldoc-box)
+
+;; Go struct tag management (add/remove/rename json/db/etc tags)
+(package! go-tag)
+
+;; golangci-lint flycheck integration
+(package! flycheck-golangci-lint)
+
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
